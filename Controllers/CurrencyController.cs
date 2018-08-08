@@ -25,13 +25,13 @@ namespace CurrencyExchange.Controllers
         {
             /** Returns the latest currency conversion rates */
 
-            return CurrencyRates.getLatestCurrencyRates();
+            return CurrencyRate.getLatestCurrencyRates();
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<CurrencyRate> AllRates(string isoCurrencyCode)
+        public IEnumerable<CurrencyRate> AllRates()
         {
-            return CurrencyRates.getHistoricCurrencyRates(isoCurrencyCode);
+            return CurrencyRate.getHistoricalCurrencyRates();
         }
     }
 }
