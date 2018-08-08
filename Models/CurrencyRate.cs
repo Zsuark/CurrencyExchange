@@ -6,12 +6,13 @@
         public string Currency { get; set; }
         public string Rate { get; set; }
 
-        public CurrencyRate(string theDate, string theCurrency, string theRate)
+        public CurrencyRate(string latestDate, string theCurrency, string theRate)
         {
-            Date = theDate;
+            Date = latestDate;
             Currency = theCurrency;
             Rate = theRate;
         }
     }
+
 }
 
