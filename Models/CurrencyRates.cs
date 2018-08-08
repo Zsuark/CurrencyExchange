@@ -13,14 +13,16 @@ namespace CurrencyExchange.Models
 
     public static class CurrencyRates
     {
+        /* Note: all Curency Rates does not include the EUR.
+         * Note: Latest Currency Rates does include the EUR.
+         */
 
         // TODO: put in config file!
         private static string URLString = "http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml";
 
         private static XmlDocument xmlDoc = new XmlDocument();
 
-        private static string latestDate = "0000-00-00";
-        private static SortedSet<string> allCurrencies;
+        // private static string latestDate = "0000-00-00";
         private static List<CurrencyRate> latestCurrencyRates;
         private static List<CurrencyRate> allCurrencyRates;
 
@@ -32,14 +34,10 @@ namespace CurrencyExchange.Models
             return latestCurrencyRates;
         }
 
-        public static IEnumerable<CurrencyRate> getHistoricCurrencyRates(string code)
+        public static IEnumerable<CurrencyRate> getAllCurrencyRates()
         {
             populateClass();
-
-            return from cr in allCurrencyRates
-                   where cr.Currency == code
-                   select cr;
-
+            return allCurrencyRates
         }
 
 
@@ -60,7 +58,6 @@ namespace CurrencyExchange.Models
             latestCurrencyRates.Add(euroRate);
 
             allCurrencyRates = new List<CurrencyRate>();
-            allCurrencyRates.Add(euroRate);
 
             foreach (XmlNode currencyNode in timeNode)
             {
@@ -69,7 +66,6 @@ namespace CurrencyExchange.Models
                 latestCurrencyRates.Add(new CurrencyRate(latestDate, currency, rate));
             }
 
-            allCurrencies = new SortedSet<string>();
             foreach (XmlNode currentTimeNode in xmlDoc.DocumentElement.ChildNodes[2])
             {
                 string currentDate = currentTimeNode.Attributes["time"].Value;
@@ -82,15 +78,6 @@ namespace CurrencyExchange.Models
                     allCurrencies.Add(currency);
                 }
             }
-
-            Console.Write("latestDate: ");
-            Console.WriteLine(latestDate);
-            Console.Write("allCurrencies: ");
-            Console.WriteLine(allCurrencies);
-            Console.Write("latestCurrencyRates: ");
-            Console.WriteLine(latestCurrencyRates);
-            Console.Write("allCurrencyRates: ");
-            Console.WriteLine(allCurrencyRates);
         }
     }
 }
