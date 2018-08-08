@@ -21,9 +21,6 @@ class ConverterViewModel {
     public to_amount   = ko.computed<number | string | null>(() => {
 
         let fromAmount = this.from_amount();
-        console.log("fromAmount: " + fromAmount);
-
-
         let fromCurrencyObj = this.currency_from();
         let toCurrencyObj   = this.currency_to();
 
@@ -36,29 +33,12 @@ class ConverterViewModel {
             return null;
         }
 
-        if (isNaN(this.from_amount())) {
+        if (isNaN(fromAmount)) {
             return "Entered amount to convert must be number!";
         }
 
-        console.log("fromCurrencyObj:");
-        console.log(fromCurrencyObj);
-        console.log("toCurrencyObj: ");
-        console.log(toCurrencyObj);
-
-        console.log("typeof fromCurrencyObj");
-
-        let fromType = typeof fromCurrencyObj;
-
-        console.log(fromType);
-
         let fromRate = fromCurrencyObj.rate;
         let toRate = toCurrencyObj.rate;
-
-
-        console.log("fromRate:");
-        console.log(fromRate);
-        console.log("toRate:");
-        console.log(toRate);
 
         return (fromAmount * toRate) / fromRate;
     });

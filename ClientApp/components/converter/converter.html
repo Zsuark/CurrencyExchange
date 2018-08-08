@@ -1,10 +1,8 @@
 <h1>Currency Converter</h1>
 
-<p>Convert between two rates</p>
+<p>Convert between two different currencies</p>
 
 <p data-bind='ifnot: rates'><em>Loading...</em></p>
-
-
 
 <div class="controls" data-bind="if: rates">
 
@@ -48,23 +46,8 @@
             </div>
         </div>
     </div>
-    <!--
-    <div class="row">
-        <div class="col-md-12">
-            <input type="submit" class="btn btn-success btn-send" value="Convert Currencies!">
-        </div>
-    </div>
-    -->
 </div>
 
-<p>From amount: <span data-bind="text: from_amount"></span></p>
-<p>To amount: <span data-bind="text: to_amount"></span></p>
-<p>Currency from: <span data-bind="text: currency_from() ? currency_from().currency : ''"></span></p>
-<p>Currency to: <span data-bind="text: currency_to() ? currency_to().currency : ''"></span></p>
-
-<!--
-</form>
--->
 
 <h2>Latest Currency Rates</h2>
 
