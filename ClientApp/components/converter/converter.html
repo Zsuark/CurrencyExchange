@@ -1,7 +1,91 @@
 <h1>Currency Converter</h1>
 
-<p>This is a simple example of a Knockout component.</p>
+<p>Convert between two rates</p>
 
-<p>Current count: <strong data-bind='text: currentCount'></strong></p>
+<p data-bind='ifnot: rates'><em>Loading...</em></p>
 
-<button data-bind='click: incrementCounter'>Increment</button>
+
+
+<div class="controls" data-bind="if: rates">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="from_amount">Amount to convert from</label>
+                <input id="from_amount" type="text" name="name" class="form-control"
+                       placeholder="Enter amount to convert" data-bind="value: from_amount" />
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="converted_amount">Converted Amount</label>
+                <p id="converted_amount" data-bind="text: to_amount"></p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="currency_from">Currency to convert from</label>
+                <select id="currency_from" name="currency_from" class="form-control"
+                        data-bind="options: rates(),
+                optionsText: 'currency',
+                optionsCaption: 'Choose currency',
+                value: currency_from"></select>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="currency_to">Currency to convert to</label>
+                <select id="currency_to" name="currency_to" class="form-control"
+                        data-bind="options: rates(),
+                optionsText: 'currency',
+                optionsCaption: 'Choose currency',
+                value: currency_to"></select>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="row">
+        <div class="col-md-12">
+            <input type="submit" class="btn btn-success btn-send" value="Convert Currencies!">
+        </div>
+    </div>
+    -->
+</div>
+
+<p>From amount: <span data-bind="text: from_amount"></span></p>
+<p>To amount: <span data-bind="text: to_amount"></span></p>
+<p>Currency from: <span data-bind="text: currency_from() ? currency_from().currency : ''"></span></p>
+<p>Currency to: <span data-bind="text: currency_to() ? currency_to().currency : ''"></span></p>
+
+<!--
+</form>
+-->
+
+<h2>Latest Currency Rates</h2>
+
+<p>Currency rates are conversion rates from &euro;1 (1 EUR)</p>
+
+<p data-bind="if: rates">Currency exchange rates are dated: <span data-bind="text: rates_date()"></span>
+
+<p data-bind='ifnot: rates'><em>Loading...</em></p>
+
+<table class='table' data-bind='if: rates'>
+    <thead>
+        <tr>
+            <th>Currency</th>
+            <th>Rate</th>
+        </tr>
+    </thead>
+    <tbody data-bind='foreach: rates'>
+        <tr>
+            <td data-bind='text: currency'></td>
+            <td data-bind='text: rate'></td>
+        </tr>
+    </tbody>
+</table>
+
