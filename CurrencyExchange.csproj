@@ -20,6 +20,9 @@
     <None Remove="ClientApp\components\fetch-data\fetch-data.html" />
     <None Remove="ClientApp\components\fetch-data\fetch-data.ts" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\SampleDataController.cs" />
+  </ItemGroup>
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
