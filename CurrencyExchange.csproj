@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />
+    <PackageReference Include="plottable.TypeScript.DefinitelyTyped" Version="0.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,8 @@
     <None Remove="ClientApp\components\fetch-data\fetch-data.html" />
     <None Remove="ClientApp\components\fetch-data\fetch-data.ts" />
     <None Remove="ClientApp\components\converter\converter.js.map" />
+    <None Remove="ClientApp\interfaces\rickshaw\LICENSE" />
+    <None Remove="ClientApp\components\history\history.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\SampleDataController.cs" />
@@ -28,6 +31,7 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="ClientApp\interfaces\" />
+    <Folder Include="ClientApp\interfaces\CurrencyRate\" />
   </ItemGroup>
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->

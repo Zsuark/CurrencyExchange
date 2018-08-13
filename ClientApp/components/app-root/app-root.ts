@@ -26,7 +26,7 @@ class AppRootViewModel {
         ko.components.register('nav-menu', navMenu);
         ko.components.register('home-page', require('bundle-loader?lazy!../home-page/home-page'));
         ko.components.register('converter', require('bundle-loader?lazy!../converter/converter'));
-        ko.components.register('history', require('bundle-loader?lazy!../history/history'));
+        ko.components.register('history', require('../history/history'));
     }
 
     // To support hot module replacement, this method unregisters the router and KO components.

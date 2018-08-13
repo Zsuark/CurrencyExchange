@@ -6,7 +6,6 @@ interface CurrencyRate {
     rate: number;
 }
 
-
 class ConverterViewModel {
     public rates = ko.observableArray<CurrencyRate>();
 
@@ -39,10 +38,19 @@ class ConverterViewModel {
 
         let fromRate = fromCurrencyObj.rate;
         let toRate = toCurrencyObj.rate;
-
-        return (fromAmount * toRate) / fromRate;
+        let result = (fromAmount * toRate) / fromRate;
+        let roundedResult = this.roundTo(result, 2);
+        return roundedResult;
+        // return result;
     });
 
+    public roundTo(n: number, d: number) {
+        // n number to round
+        // d number of decimal places to round to
+
+        let m = Math.pow(10, d);
+        return Math.round(n * m)/m;
+    }
 
     constructor() {
         fetch('api/Currency/LatestRates')
