@@ -1,8 +1,6 @@
 import * as ko from 'knockout';
 import * as Plottable from 'plottable';
 
-alert("Before");
-
 
 class HistoryViewModel {
 
@@ -11,10 +9,10 @@ class HistoryViewModel {
       let xScale = new Plottable.Scales.Linear();
       let yScale = new Plottable.Scales.Linear();
     
-      let xAxis = new Plottable.Axes.Numeric(xScale, "bottom");
-      let yAxis = new Plottable.Axes.Numeric(yScale, "left");
+      let xAxis: Plottable.Axes.Numeric = new Plottable.Axes.Numeric(xScale, "bottom");
+      let yAxis: Plottable.Axes.Numeric = new Plottable.Axes.Numeric(yScale, "left");
     
-      let plot = new Plottable.Plots.Line();
+      let plot: Plottable.Plots.Line<{}> = new Plottable.Plots.Line();
       plot.x(function(d) { return d.x; }, xScale);
       plot.y(function(d) { return d.y; }, yScale);
     
@@ -25,20 +23,16 @@ class HistoryViewModel {
         { "x": 3, "y": 8 }
       ];
     
-      let dataset = new Plottable.Dataset(data);
+      let dataset: Plottable.Dataset = new Plottable.Dataset(data);
       plot.addDataset(dataset);
     
-      let chart = new Plottable.Components.Table([
+      let chart: Plottable.Components.Table = new Plottable.Components.Table([
         [yAxis, plot],
         [null, xAxis]
       ]);
 
-        alert("div#tutorial-result: " + JSON.stringify(document.querySelector("div#tutorial-result")));
-
         chart.renderTo("div#tutorial-result");
 
-
-        alert("Here3");
 
     }
 }
