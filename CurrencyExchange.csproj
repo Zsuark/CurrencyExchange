@@ -19,9 +19,14 @@
     <None Remove="ClientApp\components\counter-example\counter-example.html" />
     <None Remove="ClientApp\components\fetch-data\fetch-data.html" />
     <None Remove="ClientApp\components\fetch-data\fetch-data.ts" />
+    <None Remove="ClientApp\components\converter\converter.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Controllers\SampleDataController.cs" />
+    <Compile Remove="DAL\Middleware.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
