@@ -8,6 +8,8 @@ interface CurrencyRate {
     rate: number;
 }
 
+
+
 class HistoryViewModel {
 
     constructor() {
@@ -21,19 +23,22 @@ class HistoryViewModel {
 
       
 
-      let newConfigs: Plottable.Axes.TimeAxisConfiguration[] = [];
-      configs.forEach(function(tierConfiguration){
-        let newTierConfiguration: Plottable.Axes.TimeAxisTierConfiguration[] = [];
-        tierConfiguration.forEach(function(row){
-            if(row.interval === "day" ||
-                row.interval === "month" ||
-                row.interval === "year"){
-                newTierConfiguration.push(row);
-            }
-        });
-        newConfigs.push(newTierConfiguration);
-      });
-      xAxis.axisConfigurations(newConfigs);
+
+        let newConfigs: Plottable.Axes.TimeAxisConfiguration[] = [];
+        let tiers: Plottable.Axes.TimeAxisTierConfiguration[] = [];
+        tiers.push({ formatter: Plottable.Formatters.time("%d"),
+           interval: Plottable.TimeInterval.day,
+           step: 1 });
+        tiers.push({ formatter: Plottable.Formatters.time("%B"),
+           interval: Plottable.TimeInterval.month,
+           step: 1 });
+        tiers.push({ formatter: Plottable.Formatters.time("%Y"),
+           interval: Plottable.TimeInterval.year,
+           step: 1 });
+
+
+        newConfigs.push(tiers);
+        xAxis.axisConfigurations(newConfigs);
 
 
       let yAxis: Plottable.Axes.Numeric = new Plottable.Axes.Numeric(yScale, "left");
