@@ -29,7 +29,7 @@ namespace CurrencyExchange.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<CurrencyRate> AllRates()
+        public IEnumerable<CurrencyRate> AllRatesHistory()
         {
             return CurrencyRate.getHistoricalCurrencyRates();
         }

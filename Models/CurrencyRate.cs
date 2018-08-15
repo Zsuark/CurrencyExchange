@@ -9,6 +9,25 @@ using System.Xml;
 
 namespace CurrencyExchange.Models
 {
+
+
+    /*
+    public class CurrencyRateHistory
+    {
+        struct DatedRate {
+            public String date;
+            public String rate;
+        }
+
+        public string Currency;
+        public List<DatedRate> DailyRates;
+
+        CurrencyRateHistory(IEnumerable<CurrencyRate> history) {
+            
+        }
+    }
+    */
+
     public class CurrencyRate
     {
 
@@ -63,8 +82,11 @@ namespace CurrencyExchange.Models
             // TODO: only execute if needed
             // i.e. check if we need to run and if not return early
 
+            // Load the XML Document
             xmlDoc.Load(URLString);
 
+
+            // Get the first node of Cubes for the latest results
             XmlNode timeNode =
                 xmlDoc.DocumentElement.ChildNodes[2].ChildNodes[0];
 
@@ -74,7 +96,7 @@ namespace CurrencyExchange.Models
             var euroRate = new CurrencyRate(latestDate, "EUR", "1");
             latestCurrencyRates.Add(euroRate);
 
-            historicalCurrencyRates = new List<CurrencyRate>();
+
 
             foreach (XmlNode currencyNode in timeNode)
             {
@@ -83,15 +105,24 @@ namespace CurrencyExchange.Models
                 latestCurrencyRates.Add(new CurrencyRate(latestDate, currency, rate));
             }
 
-            foreach (XmlNode currentTimeNode in xmlDoc.DocumentElement.ChildNodes[2])
+            // Populate the historical data
+            historicalCurrencyRates = new List<CurrencyRate>();
+            XmlNamespaceManager xmlnsManager = new XmlNamespaceManager(xmlDoc.NameTable);
+            xmlnsManager.AddNamespace("gesmes", "http://www.gesmes.org/xml/2002-08-01");
+            xmlnsManager.AddNamespace("lo", "http://www.ecb.int/vocabulary/2002-08-01/eurofxref");
+            XmlNodeList myNodeList = xmlDoc.SelectNodes("//lo:Cube[@time]", xmlnsManager);
+
+
+            foreach (XmlNode currentTimeNode in myNodeList)
             {
                 string currentDate = currentTimeNode.Attributes["time"].Value;
+                Console.WriteLine("currentTimeNode: " + currentDate);
 
                 foreach (XmlNode currencyNode in currentTimeNode)
                 {
                     string currency = currencyNode.Attributes["currency"].Value;
                     string rate = currencyNode.Attributes["rate"].Value;
-                    historicalCurrencyRates.Add(new CurrencyRate(latestDate, currency, rate));
+                    historicalCurrencyRates.Add(new CurrencyRate(currentDate, currency, rate));
                 }
             }
         }
